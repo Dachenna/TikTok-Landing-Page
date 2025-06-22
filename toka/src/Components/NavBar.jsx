@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../Assets/Logo.png';
+import Logo from './Logo'
 
 export  const NavBar = () => {
     //this is the navigation bar component
@@ -23,10 +23,10 @@ export  const NavBar = () => {
     ]
 
   return (
-    <div className='bg-[#201C2D]'>
+    <div className=''>
       <div className="container">
-        <div className="absolute top-0 left-0 z-50 ">
-            <img src={Logo} alt="Toka Logo" className="w-10 h-10 mx-4 my-2" />
+        <div className=" ">
+            <img src={Logo} alt="Toka Logo" className="absolute mx-2 my-4" />
         </div>
       </div>
     </div>
