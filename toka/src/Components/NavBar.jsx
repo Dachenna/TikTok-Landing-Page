@@ -25,8 +25,8 @@ export  const NavBar = () => {
   return (
     <div className=''>
       <div className="container">
-        <div className=" ">
-            <img src={Logo} alt="Toka Logo" className="absolute mx-2 my-4" />
+        <div className=" absolute px-2 py-3">
+            <Logo />
         </div>
       </div>
     </div>
