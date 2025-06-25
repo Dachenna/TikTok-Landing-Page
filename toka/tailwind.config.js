@@ -6,11 +6,14 @@ export default {
   ],
   theme: {
     extend: {},
-    colors: {
-      primary: '#4C214B',
-      secondary: '#201C2D',
-      accent: '#F0A500',
-    }
+      colors: {
+        primary: '#4C214B',
+        secondary: '#201C2D',
+        accent: '#F0A500',
+     },
+     animation: {
+      'spin-slow': 'spin 2s linear infinte',
+     },
   },
   plugins: [],
 }

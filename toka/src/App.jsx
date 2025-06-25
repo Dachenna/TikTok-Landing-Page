@@ -1,10 +1,18 @@
-import React from 'react'
-import { NavBar } from './Components/NavBar'
-function App() {
-  return (
-    <div className='bg-gradient-to-b from-primary to-secondary min-h-screen'>
-      <NavBar />
-    </div>
+import React, { useState }from 'react'
+import {BrowersRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom'
+import { LoadingScreen } from '../LoadingScreen';
+import Hero from './Components/Hero';
+
+function App (){
+  const [isLoaded, setIsLoaded] = useState(false)
+  return(
+    <>
+      {!isLoaded && <LoadingScreen  onComplete={() =>setIsLoaded(true)}/>}
+      <BrowserRouter>
+        <Layout />  
+      </BrowserRouter>
+    </>
+
   )
 }
 
