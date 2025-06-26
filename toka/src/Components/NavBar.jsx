@@ -11,19 +11,19 @@ export const NavBar = ({menuOpen, setMenuOpen}) => {
   const navItems = [
     {
       name: "Home",
-      link: "/",
+      href: "#",
     },
     {
       name: "Create",
-      link: "/create",
+      href: "#create",
     },
     {
       name: "Trends",
-      link: "/trends",
+      href: "#trends",
     },
     {
       name: "Collections",
-      link: "/collections",
+      href: "#collections",
     },
   ];
 
