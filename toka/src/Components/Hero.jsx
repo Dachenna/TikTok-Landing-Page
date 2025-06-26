@@ -3,7 +3,7 @@ import { NavBar } from './NavBar'
 
 function Hero() {
   return (
-    <div className='bg-gradient-to-b from-primary to-secondary min-h-screen'>
+    <div className='bg-gradient-to-r from-primary/40 to-secondary/70 min-h-screen'>
       <NavBar />
     </div>
   )

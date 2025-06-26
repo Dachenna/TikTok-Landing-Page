@@ -1,85 +1,54 @@
-import React, { useEffect, useState } from "react";
-import Logo from "./src/assets/Layer_2.png"; // Adjust the path as needed
+import { useEffect } from "react";
 
-export const LoadingScreen = () => {
-  const [phase, setPhase] = useState("loading"); // "loading" | "split" | "fade"
-  const [visible, setVisible] = useState(true);
-
-  // After loading, trigger split, then fade out
+export const LoadingScreen = ({ onComplete }) => {
   useEffect(() => {
-    const timers = [];
-    timers.push(setTimeout(() => setPhase("split"), 2000)); // Split after 1.8s
-    timers.push(setTimeout(() => setPhase("fade"), 3000));  // Fade after split
-    timers.push(setTimeout(() => setVisible(false), 3800)); // Hide after fade
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  if (!visible) return null;
-
-  // CSS for splitting and rotating
-  const getPartClass = (part) => {
-    let base =
-      "absolute top-0 left-0 w-full h-full transition-all duration-500 ease-in-out";
-    if (phase === "loading") {
-      return (
-        base +
-        " rotate-0 translate-x-0 translate-y-0 opacity-100"
-      );
-    }
-    if (phase === "split") {
-      if (part === 0)
-        return (
-          base +
-          " -rotate-12 -translate-x-10 -translate-y-8 opacity-100"
-        );
-      if (part === 1)
-        return (
-          base +
-          " rotate-12 translate-x-10 -translate-y-8 opacity-100"
-        );
-      if (part === 2)
-        return (
-          base +
-          " rotate-0 translate-y-10 opacity-100"
-        );
-    }
-    if (phase === "fade") {
-      return base + " opacity-0";
-    }
-    return base;
-  };
-
-  // Each part is a mask of the image
-  const maskStyles = [
-    // Top-left third
-    "polygon(50% 0%, 0% 100%, 50% 60%)",
-    // Top-right third
-    "polygon(50% 0%, 100% 100%, 50% 60%)",
-    // Bottom third
-    "polygon(0% 100%, 100% 100%, 50% 60%)",
-  ];
+    const timer = setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 2200); // Adjust duration as needed
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   return (
-    <div className="bg-secondary fixed inset-0 z-50 flex items-center justify-center ">
-      <div
-        className={`relative w-32 h-32 ${
-          phase === "loading" ? "animate-spin-slow" : ""
-        }`}
+    <div className="fixed inset-0 w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 z-50">
+      {/* Infinity SVG */}
+      <svg
+        width="120"
+        height="60"
+        viewBox="0 0 120 60"
+        fill="none"
+        className="animate-spin-infinity"
       >
-        {[0, 1, 2].map((i) => (
-          <img
-            key={i}
-            src={Logo}
-            alt="logo"
-            className={getPartClass(i)}
-            style={{
-              WebkitClipPath: maskStyles[i],
-              clipPath: maskStyles[i],
-            }}
-            draggable={false}
-          />
-        ))}
-      </div>
+        <path
+          d="M20,30 Q20,10 40,10 Q60,10 60,30 Q60,50 80,50 Q100,50 100,30 Q100,10 80,10 Q60,10 60,30 Q60,50 40,50 Q20,50 20,30 Z"
+          stroke="url(#infinityGradient)"
+          strokeWidth="8"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <defs>
+          <linearGradient id="infinityGradient" x1="20" y1="10" x2="100" y2="50" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#38bdf8" />
+            <stop offset="0.5" stopColor="#ec4899" />
+            <stop offset="1" stopColor="#a78bfa" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <span className="mt-8 text-white text-xl font-semibold tracking-widest animate-pulse">
+        Loading...
+      </span>
+      {/* Custom animation */}
+      <style>
+        {`
+          @keyframes spin-infinity {
+            0% { transform: rotate(0deg) scale(1);}
+            50% { transform: rotate(180deg) scale(1.08);}
+            100% { transform: rotate(360deg) scale(1);}
+          }
+          .animate-spin-infinity {
+            animation: spin-infinity 1.8s cubic-bezier(.77,0,.18,1) infinite;
+          }
+        `}
+      </style>
     </div>
   );
 };
